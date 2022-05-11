@@ -6,6 +6,11 @@ provider:
   runtime: nodejs12.x
   region: us-east-1
   stage: dev
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource: "${env:URL_SHORTNER_TABLE_ARN}"
 
 plugins:
   - serverless-offline
