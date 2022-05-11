@@ -9,6 +9,7 @@ provider:
 
 plugins:
   - serverless-offline
+  - serverless-plugin-typescript
 
 functions:
   hello:
@@ -16,4 +17,10 @@ functions:
     events:
       - http:
           path: /hello
+          method: GET
+  mapUrl:
+    handler: src/index.mapUrl
+    events:
+      - http:
+          path: /t/{url}
           method: GET
