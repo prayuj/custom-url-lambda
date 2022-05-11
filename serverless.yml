@@ -1,0 +1,18 @@
+service: myservice
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+
+plugins:
+  - serverless-offline
+
+functions:
+  hello:
+    handler: myService/handler.hello
+    events:
+      - http:
+          path: /hello
+          method: GET
