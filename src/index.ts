@@ -4,17 +4,9 @@
  */
 import documentClient from './dynamoDBSetup';
 import getUrlSchema from './utils/getUrl';
-interface mapUrlSchema {
-    pathParameters: {
-        url: string;
-    }
-}
 
-interface mapUrlResponseSchema {
-    statusCode: 200 | 400 | 404 | 500;
-    body: string;
-}
+import { mapUrlResponseSchema } from './types';
 
-module.exports.mapUrl = async (event: mapUrlSchema):Promise<mapUrlResponseSchema> => {
+module.exports.mapUrl = async (event):Promise<mapUrlResponseSchema> => {
     return await getUrlSchema(documentClient, event.pathParameters?.url);
 }
