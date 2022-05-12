@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 import userAccessInfo from '../../models/userAccessInfo.model';
-import updateUrlCount from "./updateUrlCount";
+import { getUrl } from './getUrl';
 
 export const logUrlHit = async (documentClient, url, additional) => {
 
@@ -10,7 +10,7 @@ export const logUrlHit = async (documentClient, url, additional) => {
             useUnifiedTopology: true,
         });
 
-        const { statusCode, body } = (await updateUrlCount(documentClient, url));
+        const { statusCode, body } = (await getUrl(documentClient, url));
 
         if(statusCode !== 200) {
             return {

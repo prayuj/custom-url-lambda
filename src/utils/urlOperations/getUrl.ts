@@ -28,5 +28,3 @@ export const getUrl = async (documentClient, fromUrl: string): Promise<responseS
         }
     }
 };
-
-// export default getUrl;

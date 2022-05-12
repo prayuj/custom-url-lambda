@@ -12,12 +12,12 @@ const updateUrlCount = async (documentClient, url): Promise<responseSchema> => {
         ExpressionAttributeValues: {
             ":val": 1,
         },
-        ReturnValues: "UPDATED_NEW",
+        ReturnValues: "ALL_NEW",
     };
     try {
         const data = await documentClient.send(new UpdateCommand(params));
         if (data.Attributes) {
-            return { statusCode: 200, body: JSON.stringify({ message: data.Attributes.hits }) };
+            return { statusCode: 200, body: JSON.stringify({ item: data.Attributes }) };
         }
         return {
             statusCode: 404,

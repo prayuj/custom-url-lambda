@@ -4,3 +4,4 @@ export * from './getAllUrls';
 export * from './deleteUrl';
 export * from './getAccessLogs';
 export * from './logUrlHit';
+export * from './mapUrl';
