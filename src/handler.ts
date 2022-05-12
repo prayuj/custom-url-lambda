@@ -5,6 +5,7 @@
 import documentClient from './dynamoDBSetup';
 import getUrl from './utils/getUrl';
 import setCustomUrl from './utils/setCustomUrl';
+import getAllUrls from './utils/getAllUrls';
 import withCookieAuthenticator from './utils/cookieAuth';
 
 import { responseSchema } from './types';
@@ -27,4 +28,10 @@ module.exports.setCustomUrl = async (event, context): Promise<responseSchema> =>
 
         return await setCustomUrl(documentClient, title, url);
     });    
+};
+
+module.exports.allUrls = async (event, context): Promise<responseSchema> => {
+    return await withCookieAuthenticator(event, context, async () => {
+        return await getAllUrls(documentClient);
+    });
 };

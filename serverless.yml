@@ -40,3 +40,10 @@ functions:
       - http:
           path: /log/{url}
           method: POST
+  
+  allUrls:
+    handler: src/handler.allUrls
+    events:
+      - http:
+          path: /all-urls
+          method: GET
