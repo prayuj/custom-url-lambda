@@ -6,10 +6,13 @@ provider:
   runtime: nodejs12.x
   region: us-east-1
   stage: dev
+  environment:
+    TABLE_NAME: ${env.URL_SHORTNER_TABLE_ARN}
   iamRoleStatements:
     - Effect: Allow
       Action:
         - dynamodb:GetItem
+        - dynamodb:PutItem
       Resource: "${env:URL_SHORTNER_TABLE_ARN}"
 
 plugins:
@@ -17,15 +20,16 @@ plugins:
   - serverless-plugin-typescript
 
 functions:
-  hello:
-    handler: myService/handler.hello
-    events:
-      - http:
-          path: /hello
-          method: GET
   mapUrl:
     handler: src/index.mapUrl
     events:
       - http:
           path: /t/{url}
           method: GET
+
+  setCustomUrl:
+    handler: src/index.setCustomUrl
+    events:
+      - http:
+          path: /shorten-url
+          method: POST
