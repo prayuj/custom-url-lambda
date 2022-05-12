@@ -53,14 +53,14 @@ functions:
           method: DELETE
   
   logUrlHit:
-    handler: src/logsHandler.logUrlHit
+    handler: src/mongoHandler.logUrlHit
     events:
       - http:
           path: /log/{url}
           method: POST
 
   userAcessLogs:
-    handler: src/logsHandler.userAccessLogs
+    handler: src/mongoHandler.userAccessLogs
     events:
       - http:
           path: /user-access-logs
