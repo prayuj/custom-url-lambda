@@ -3,11 +3,10 @@
  * because when container reuse happens, the setup is already loaded
  */
 import documentClient from './dynamoDBSetup';
-import { getUrl, setCustomUrl, getAllUrls, deleteUrl, getAccessLogs } from './utils/urlOperations';
+import { getUrl, setCustomUrl, getAllUrls, deleteUrl } from './utils/urlOperations';
 import withCookieAuthenticator from './utils/cookieAuth';
 
 import { responseSchema } from './types';
-
 module.exports.mapUrl = async (event):Promise<responseSchema> => {
     return await getUrl(documentClient, event.pathParameters?.url);
 };

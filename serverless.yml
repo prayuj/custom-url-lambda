@@ -33,13 +33,6 @@ functions:
       - http:
           path: /shorten-url
           method: POST
-    
-  logUrlHit:
-    handler: src/logsHandler.logUrlHit
-    events:
-      - http:
-          path: /log/{url}
-          method: POST
   
   allUrls:
     handler: src/handler.allUrls
@@ -55,6 +48,13 @@ functions:
           path: /url
           method: DELETE
   
+  logUrlHit:
+    handler: src/logsHandler.logUrlHit
+    events:
+      - http:
+          path: /log/{url}
+          method: POST
+
   userAcessLogs:
     handler: src/logsHandler.userAccessLogs
     events:
