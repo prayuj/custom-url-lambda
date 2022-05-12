@@ -4,7 +4,7 @@ import { responseSchema } from "../../types";
 
 export const getAccessLogs = async (sort, limit = 20, skip = 0): Promise<responseSchema> => {
     try {
-        await mongoose.connect(process.env.MONGODB_URL, {
+        mongoose.connect(process.env.MONGODB_URL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
