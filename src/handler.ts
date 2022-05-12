@@ -5,8 +5,8 @@
 import documentClient from './dynamoDBSetup';
 import { setCustomUrl, getAllUrls, deleteUrl, mapUrl } from './utils/urlOperations';
 import withCookieAuthenticator from './utils/cookieAuth';
-
 import { responseSchema } from './types';
+
 module.exports.mapUrl = async (event):Promise<responseSchema> => {
     return await mapUrl(documentClient, event.pathParameters?.url);
 };
