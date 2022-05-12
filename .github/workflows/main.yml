@@ -25,3 +25,4 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         URL_SHORTNER_TABLE_ARN: ${{ secrets.URL_SHORTNER_TABLE_ARN }}
         MONGODB_URL: ${{ secrets.MONGODB_URL }}
+        COOKIE_ACCESS_TOKEN: ${{ secrets.COOKIE_ACCESS_TOKEN }}
