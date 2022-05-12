@@ -1,13 +1,15 @@
+import { responseSchema } from "../types";
+
 const isAuthenticatedWithCookie = (cookies: string) => {
     return cookies.includes(`key=${process.env.COOKIE_ACCESS_TOKEN}`);
 };
 
-export const withCookieAuthenticator = (event, context, callBack) => {
+const withCookieAuthenticator = async (event, context, callBack): Promise<responseSchema> => {
     if (!isAuthenticatedWithCookie(event.headers.Cookie)) 
         return { statusCode: 401, body: JSON.stringify({ message: 'Unauthorized' }) };    
 
-    return callBack(event, context);
+    return await callBack(event, context);
     
 };
 
-export default isAuthenticatedWithCookie;
+export default withCookieAuthenticator;

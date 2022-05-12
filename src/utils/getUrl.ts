@@ -1,7 +1,7 @@
 import { GetCommand } from '@aws-sdk/lib-dynamodb';
-import { mapUrlResponseSchema } from '../types';
+import { responseSchema } from '../types';
 
-const getUrl = async (documentClient, fromUrl: string): Promise<mapUrlResponseSchema> => {
+const getUrl = async (documentClient, fromUrl: string): Promise<responseSchema> => {
     if (!fromUrl) return { statusCode: 400, body: JSON.stringify({ message: 'No URL provided' }) };
     
     const params = {

@@ -3,10 +3,28 @@
  * because when container reuse happens, the setup is already loaded
  */
 import documentClient from './dynamoDBSetup';
-import getUrlSchema from './utils/getUrl';
+import getUrl from './utils/getUrl';
+import setCustomUrl from './utils/setCustomUrl';
+import withCookieAuthenticator from './utils/cookieAuth';
 
-import { mapUrlResponseSchema } from './types';
+import { responseSchema } from './types';
 
-module.exports.mapUrl = async (event):Promise<mapUrlResponseSchema> => {
-    return await getUrlSchema(documentClient, event.pathParameters?.url);
-}
+module.exports.mapUrl = async (event):Promise<responseSchema> => {
+    return await getUrl(documentClient, event.pathParameters?.url);
+};
+
+module.exports.setCustomUrl = async (event, context): Promise<responseSchema> => {
+    return await withCookieAuthenticator(event, context, async (event) => {
+        const { title, url } = JSON.parse(event.body);
+        if (!title || !url) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({
+                    message: 'Title and URL are required',
+                }),
+            };
+        }
+
+        return await setCustomUrl(documentClient, title, url);
+    });    
+};

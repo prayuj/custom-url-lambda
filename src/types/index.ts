@@ -4,7 +4,7 @@ export interface mapUrlSchema {
     }
 }
 
-export interface mapUrlResponseSchema {
-    statusCode: 200 | 400 | 404 | 500;
+export interface responseSchema {
+    statusCode: 200 | 400 | 401| 404 | 500;
     body: string;
 }
