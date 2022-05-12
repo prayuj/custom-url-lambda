@@ -14,16 +14,16 @@ module.exports.mapUrl = async (event):Promise<responseSchema> => {
 module.exports.setCustomUrl = async (event, context): Promise<responseSchema> => {
     return await withCookieAuthenticator(event, context, async (event) => {
         const { title, url } = JSON.parse(event.body);
-        if (!title || !url) {
+        if (!url) {
             return {
                 statusCode: 400,
                 body: JSON.stringify({
-                    message: 'Title and URL are required',
+                    message: 'URL are required',
                 }),
             };
         }
 
-        return await setCustomUrl(documentClient, title, url);
+        return await setCustomUrl(documentClient, url, title);
     });    
 };
 

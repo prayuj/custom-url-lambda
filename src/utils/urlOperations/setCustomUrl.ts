@@ -1,17 +1,32 @@
+const mongoose = require("mongoose");
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import * as urlSlug from 'url-slug'
+import uniqueName from "../../models/uniqueName.model";
 import { responseSchema } from "../../types";
 
-export const setCustomUrl = async (documentClient, title: string, toUrl: string): Promise<responseSchema> => {
-    
-    const sluggifiedTitle = urlSlug.convert(title);
+export const setCustomUrl = async (documentClient, toUrl: string, title?: string): Promise<responseSchema> => {
+    let setFromUniqueNames = false, sluggifiedTitle = '';
+
+    mongoose.connect(process.env.MONGODB_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+
+    if (!title) {
+        sluggifiedTitle = (await uniqueName.findOneAndDelete()).name;
+        setFromUniqueNames = true;
+    } else {
+        sluggifiedTitle = urlSlug.convert(title);
+        const titlePresentInUniqueNames = await uniqueName.findOneAndDelete({ name: sluggifiedTitle })
+        setFromUniqueNames = titlePresentInUniqueNames ? true : false;
+    }
 
     const params = {
         TableName: "URL_SHORTNER",
         Item: {
             fromUrl: sluggifiedTitle,
             toUrl,
-            setFromUniqueNames: false,
+            setFromUniqueNames,
             hits: 0,
         },
     };
