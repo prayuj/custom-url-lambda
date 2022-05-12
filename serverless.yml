@@ -7,9 +7,8 @@ provider:
   region: us-east-1
   stage: dev
   environment:
-    MONGODB_URL: ${env.MONGODB_URL}
-    COOKIE_ACCESS_TOKEN: ${env.COOKIE_ACCESS_TOKEN}
-    TABLE_NAME: ${env.URL_SHORTNER_TABLE_ARN}
+    MONGODB_URL: ${env:MONGODB_URL}
+    COOKIE_ACCESS_TOKEN: ${env:COOKIE_ACCESS_TOKEN}
   iamRoleStatements:
     - Effect: Allow
       Action:
