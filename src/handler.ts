@@ -3,7 +3,7 @@
  * because when container reuse happens, the setup is already loaded
  */
 import documentClient from './dynamoDBSetup';
-import { setCustomUrl, getAllUrls, deleteUrl, mapUrl } from './utils/urlOperations';
+import { setCustomUrl, getAllUrls, deleteUrl, mapUrl, setUrlNames } from './utils/urlOperations';
 import withCookieAuthenticator from './utils/cookieAuth';
 import { responseSchema } from './types';
 

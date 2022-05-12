@@ -5,3 +5,4 @@ export * from './deleteUrl';
 export * from './getAccessLogs';
 export * from './logUrlHit';
 export * from './mapUrl';
+export * from './setUrlNames';

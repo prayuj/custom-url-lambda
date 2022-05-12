@@ -1,7 +1,7 @@
 import documentClient from "./dynamoDBSetup";
 import { responseSchema } from "./types";
 import withCookieAuthenticator from "./utils/cookieAuth";
-import { getAccessLogs, logUrlHit } from "./utils/urlOperations";
+import { getAccessLogs, logUrlHit, setUrlNames } from "./utils/urlOperations";
 
 module.exports.logUrlHit = async (event, context): Promise<responseSchema> => {
     return await withCookieAuthenticator(event, context, async (event) => {
@@ -41,4 +41,11 @@ module.exports.userAccessLogs = async (event, context): Promise<responseSchema> 
         }
     }
     );
+}
+
+module.exports.setUrlNames = async (event, context): Promise<responseSchema> => {
+    return await withCookieAuthenticator(event, context, async (event) => {
+        const { names } = JSON.parse(event.body);
+        return await setUrlNames(names);
+    });
 }

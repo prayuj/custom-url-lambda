@@ -51,6 +51,13 @@ functions:
       - http:
           path: /url
           method: DELETE
+
+  setUrlNames:
+    handler: src/mongoHandler.setUrlNames
+    events:
+      - http:
+          path: /set-url-names
+          method: POST
   
   logUrlHit:
     handler: src/mongoHandler.logUrlHit
