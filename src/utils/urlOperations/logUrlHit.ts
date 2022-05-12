@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-import userAccessInfo from '../models/userAccessInfo.model';
+import userAccessInfo from '../../models/userAccessInfo.model';
 import updateUrlCount from "./updateUrlCount";
 
 const logUrlHit = async (documentClient, url, additional) => {
