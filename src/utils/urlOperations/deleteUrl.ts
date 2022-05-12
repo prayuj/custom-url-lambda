@@ -1,6 +1,6 @@
 import { DeleteCommand } from "@aws-sdk/lib-dynamodb";
 
-const deleteUrl = async (documentClient, url) => {
+export const deleteUrl = async (documentClient, url) => {
     const params = {
         TableName: "URL_SHORTNER",
         Key: {
@@ -31,5 +31,3 @@ const deleteUrl = async (documentClient, url) => {
         }
     }
 }
-
-export default deleteUrl;

@@ -1,6 +1,6 @@
 import { ScanCommand } from "@aws-sdk/lib-dynamodb";
 
-const getAllUrls = async (documentClient) => {
+export const getAllUrls = async (documentClient) => {
     const params = {
         TableName: "URL_SHORTNER",
         ProjectionExpression: "fromUrl, toUrl, hits",
@@ -20,5 +20,3 @@ const getAllUrls = async (documentClient) => {
         }
     }
 };
-
-export default getAllUrls;
