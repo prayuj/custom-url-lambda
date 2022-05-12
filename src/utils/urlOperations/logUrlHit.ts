@@ -19,7 +19,7 @@ export const logUrlHit = async (documentClient, url, additional) => {
             };
         }
         
-        const target = JSON.parse(body).target;
+        const target = JSON.parse(body).message;
 
         const newLog = new userAccessInfo({
             additional,
@@ -36,7 +36,10 @@ export const logUrlHit = async (documentClient, url, additional) => {
             }),
         };   
     } catch (error) {
-        
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error })
+        }
     }
 
 };
