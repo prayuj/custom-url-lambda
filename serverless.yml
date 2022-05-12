@@ -47,3 +47,10 @@ functions:
       - http:
           path: /all-urls
           method: GET
+
+  deleteUrl:
+    handler: src/handler.deleteUrl
+    events:
+      - http:
+          path: /url
+          method: DELETE

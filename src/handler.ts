@@ -9,6 +9,7 @@ import getAllUrls from './utils/getAllUrls';
 import withCookieAuthenticator from './utils/cookieAuth';
 
 import { responseSchema } from './types';
+import deleteUrl from './utils/deleteUrl';
 
 module.exports.mapUrl = async (event):Promise<responseSchema> => {
     return await getUrl(documentClient, event.pathParameters?.url);
@@ -33,5 +34,12 @@ module.exports.setCustomUrl = async (event, context): Promise<responseSchema> =>
 module.exports.allUrls = async (event, context): Promise<responseSchema> => {
     return await withCookieAuthenticator(event, context, async () => {
         return await getAllUrls(documentClient);
+    });
+};
+
+module.exports.deleteUrl = async (event, context): Promise<responseSchema> => {
+    return await withCookieAuthenticator(event, context, async (event) => {
+        const { url } = JSON.parse(event.body);
+        return await deleteUrl(documentClient, url);
     });
 };
