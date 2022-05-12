@@ -21,14 +21,14 @@ plugins:
 
 functions:
   mapUrl:
-    handler: src/index.mapUrl
+    handler: src/handler.mapUrl
     events:
       - http:
           path: /t/{url}
           method: GET
 
   setCustomUrl:
-    handler: src/index.setCustomUrl
+    handler: src/handler.setCustomUrl
     events:
       - http:
           path: /shorten-url
