@@ -1,5 +1,5 @@
 import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
-import { responseSchema } from "../types";
+import { responseSchema } from "../../types";
 
 const updateUrlCount = async (documentClient, url): Promise<responseSchema> => {
     const params = {

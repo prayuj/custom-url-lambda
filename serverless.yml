@@ -54,3 +54,10 @@ functions:
       - http:
           path: /url
           method: DELETE
+  
+  userAcessLogs:
+    handler: src/logsHandler.userAccessLogs
+    events:
+      - http:
+          path: /user-access-logs
+          method: GET

@@ -1,7 +1,7 @@
 import documentClient from "./dynamoDBSetup";
 import { responseSchema } from "./types";
 import withCookieAuthenticator from "./utils/cookieAuth";
-import logUrlHit from "./utils/logUrlHit";
+import { getAccessLogs, logUrlHit } from "./utils/urlOperations";
 
 module.exports.logUrlHit = async (event, context): Promise<responseSchema> => {
     return await withCookieAuthenticator(event, context, async (event) => {
@@ -17,4 +17,28 @@ module.exports.logUrlHit = async (event, context): Promise<responseSchema> => {
         }
         return await logUrlHit(documentClient, url, JSON.stringify(additional));
     });
+}
+
+module.exports.userAccessLogs = async (event, context): Promise<responseSchema> => {
+    return await withCookieAuthenticator(event, context, async (event) => {
+        const sort = {};
+        const sortBy = event.queryStringParameters?.sortBy;
+        const limit = event.queryStringParameters?.limit;
+        const skip = event.queryStringParameters?.skip;
+
+        try {
+            if (sortBy) {
+                const parts = sortBy.split(':')
+                sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+            }
+
+            return await getAccessLogs(sort, parseInt(limit), parseInt(skip));
+        } catch (error) {
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ error })
+            };
+        }
+    }
+    );
 }
