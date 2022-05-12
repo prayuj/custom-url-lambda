@@ -1,7 +1,13 @@
+const mongoose = require('mongoose');
 import documentClient from "./dynamoDBSetup";
 import { responseSchema } from "./types";
 import withCookieAuthenticator from "./utils/cookieAuth";
 import { getAccessLogs, logUrlHit } from "./utils/urlOperations";
+
+mongoose.connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 module.exports.logUrlHit = async (event, context): Promise<responseSchema> => {
     return await withCookieAuthenticator(event, context, async (event) => {

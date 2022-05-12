@@ -1,15 +1,9 @@
-const mongoose = require('mongoose');
 import userAccessInfo from '../../models/userAccessInfo.model';
 import updateUrlCount from "./updateUrlCount";
 
 export const logUrlHit = async (documentClient, url, additional) => {
 
     try {
-        await mongoose.connect(process.env.MONGODB_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-
         const { statusCode, body } = (await updateUrlCount(documentClient, url));
 
         if(statusCode !== 200) {
