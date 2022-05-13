@@ -79,3 +79,7 @@ functions:
           path: /user-access-logs
           method: GET
           cors: true
+custom:
+  # serverless offline plugin setup
+  serverless-offline:
+    httpPort: 5000
