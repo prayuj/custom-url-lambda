@@ -21,7 +21,7 @@ export const logUrlHit = async (documentClient, url, additional):Promise<respons
             };
         }
         
-        const target = JSON.parse(body).message;
+        const target = JSON.parse(body).url;
 
         const newLog = new userAccessInfo({
             additional,

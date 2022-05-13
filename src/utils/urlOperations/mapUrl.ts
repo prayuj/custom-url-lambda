@@ -16,7 +16,7 @@ export const mapUrl = async (documentClient, fromUrl: string): Promise<responseS
     return {
         statusCode,
         body: JSON.stringify({
-            message: JSON.parse(body).item.toUrl,
+            url: JSON.parse(body).item.toUrl,
         }),
         headers: {
             'Access-Control-Allow-Origin': '*',

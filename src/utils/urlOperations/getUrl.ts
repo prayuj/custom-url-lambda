@@ -21,7 +21,7 @@ export const getUrl = async (documentClient, fromUrl: string): Promise<responseS
         const data = await documentClient.send(new GetCommand(params));
         if (data.Item)
             return { statusCode: 200,
-                body: JSON.stringify({ message: data.Item.toUrl }),
+                body: JSON.stringify({ url: data.Item.toUrl }),
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': true,
