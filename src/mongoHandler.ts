@@ -4,23 +4,21 @@ import withCookieAuthenticator from "./utils/cookieAuth";
 import { getAccessLogs, logUrlHit, setUrlNames } from "./utils/urlOperations";
 
 module.exports.logUrlHit = async (event, context): Promise<responseSchema> => {
-    return await withCookieAuthenticator(event, context, async (event) => {
-        const url = event.pathParameters?.url;
-        const { additional } = JSON.parse(event.body);
-        if (!url) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({
-                    message: 'URL is required',
-                }),
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': true,
-                }
-            };
-        }
-        return await logUrlHit(documentClient, url, JSON.stringify(additional));
-    });
+    const url = event.pathParameters?.url;
+    const { additional } = JSON.parse(event.body);
+    if (!url) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({
+                message: 'URL is required',
+            }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
+        };
+    }
+    return await logUrlHit(documentClient, url, JSON.stringify(additional));
 }
 
 module.exports.userAccessLogs = async (event, context): Promise<responseSchema> => {
