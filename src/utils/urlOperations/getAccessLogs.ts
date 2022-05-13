@@ -18,12 +18,20 @@ export const getAccessLogs = async (sort, limit = 20, skip = 0): Promise<respons
             statusCode: 200,
             body: JSON.stringify({
                 logs: userAccessArray
-            })
+            }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         };
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({error})
+            body: JSON.stringify({ error }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         };
     }
 };

@@ -1,6 +1,7 @@
 import { ScanCommand } from "@aws-sdk/lib-dynamodb";
+import { responseSchema } from "../../types";
 
-export const getAllUrls = async (documentClient) => {
+export const getAllUrls = async (documentClient):Promise<responseSchema> => {
     const params = {
         TableName: "URL_SHORTNER",
         ProjectionExpression: "fromUrl, toUrl, hits",
@@ -12,11 +13,19 @@ export const getAllUrls = async (documentClient) => {
             body: JSON.stringify({
                 urls: data.Items,
             }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         }
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({error}),
+            body: JSON.stringify({ error }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         }
     }
 };

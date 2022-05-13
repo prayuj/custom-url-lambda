@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 import * as urlSlug from 'url-slug';
 import uniqueName from "../../models/uniqueName.model";
+import { responseSchema } from '../../types';
 
-export const setUrlNames = async (names: string[]) => {
+export const setUrlNames = async (names: string[]):Promise<responseSchema> => {
     try {
         const slugsNotSet = [];
         mongoose.connect(process.env.MONGODB_URL, {
@@ -25,12 +26,20 @@ export const setUrlNames = async (names: string[]) => {
             body: JSON.stringify({ 
                 success: 'Successfully Set New Unique Names',
                 slugsNotSet
-            })
+            }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         };
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ error })
+            body: JSON.stringify({ error }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         };
     }
 };

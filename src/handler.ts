@@ -20,6 +20,10 @@ module.exports.setCustomUrl = async (event, context): Promise<responseSchema> =>
                 body: JSON.stringify({
                     message: 'URL are required',
                 }),
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                }
             };
         }
 

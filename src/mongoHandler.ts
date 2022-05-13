@@ -13,6 +13,10 @@ module.exports.logUrlHit = async (event, context): Promise<responseSchema> => {
                 body: JSON.stringify({
                     message: 'URL is required',
                 }),
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                }
             };
         }
         return await logUrlHit(documentClient, url, JSON.stringify(additional));
@@ -36,7 +40,11 @@ module.exports.userAccessLogs = async (event, context): Promise<responseSchema> 
         } catch (error) {
             return {
                 statusCode: 500,
-                body: JSON.stringify({ error })
+                body: JSON.stringify({ error }),
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                }
             };
         }
     }

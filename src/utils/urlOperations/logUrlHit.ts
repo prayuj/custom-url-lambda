@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 import userAccessInfo from '../../models/userAccessInfo.model';
+import { responseSchema } from '../../types';
 import { getUrl } from './getUrl';
 
-export const logUrlHit = async (documentClient, url, additional) => {
+export const logUrlHit = async (documentClient, url, additional):Promise<responseSchema> => {
 
     try {
         mongoose.connect(process.env.MONGODB_URL, {
@@ -10,12 +11,13 @@ export const logUrlHit = async (documentClient, url, additional) => {
             useUnifiedTopology: true,
         });
 
-        const { statusCode, body } = (await getUrl(documentClient, url));
+        const { statusCode, body, headers } = (await getUrl(documentClient, url));
 
         if(statusCode !== 200) {
             return {
                 statusCode,
-                body
+                body,
+                headers,
             };
         }
         
@@ -34,11 +36,19 @@ export const logUrlHit = async (documentClient, url, additional) => {
             body: JSON.stringify({
                 message: 'URL hit logged',
             }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         };   
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ error })
+            body: JSON.stringify({ error }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         }
     }
 

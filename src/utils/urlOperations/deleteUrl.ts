@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 import { DeleteCommand } from "@aws-sdk/lib-dynamodb";
 import uniqueName from "../../models/uniqueName.model";
+import { responseSchema } from "../../types";
 
-export const deleteUrl = async (documentClient, url) => {
+export const deleteUrl = async (documentClient, url):Promise<responseSchema> => {
     const params = {
         TableName: "URL_SHORTNER",
         Key: {
@@ -28,6 +29,10 @@ export const deleteUrl = async (documentClient, url) => {
         return {
             statusCode: 200,
             body: JSON.stringify({ url: Attributes.fromUrl }),
+            headers: {
+            'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         };
     } catch (error) {
 
@@ -37,12 +42,20 @@ export const deleteUrl = async (documentClient, url) => {
                 body: JSON.stringify({
                     error: 'Could not find resource'
                 }),
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                }
             }
         }
 
         return {
             statusCode: 500,
             body: JSON.stringify({ error }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         }
     }
 }

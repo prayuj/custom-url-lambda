@@ -30,6 +30,7 @@ functions:
       - http:
           path: /t/{url}
           method: GET
+          cors: true
 
   setCustomUrl:
     handler: src/handler.setCustomUrl
@@ -37,6 +38,7 @@ functions:
       - http:
           path: /shorten-url
           method: POST
+          cors: true
   
   allUrls:
     handler: src/handler.allUrls
@@ -44,6 +46,7 @@ functions:
       - http:
           path: /all-urls
           method: GET
+          cors: true
 
   deleteUrl:
     handler: src/handler.deleteUrl
@@ -51,6 +54,7 @@ functions:
       - http:
           path: /url
           method: DELETE
+          cors: true
 
   setUrlNames:
     handler: src/mongoHandler.setUrlNames
@@ -58,6 +62,7 @@ functions:
       - http:
           path: /set-url-names
           method: POST
+          cors: true
   
   logUrlHit:
     handler: src/mongoHandler.logUrlHit
@@ -65,6 +70,7 @@ functions:
       - http:
           path: /log/{url}
           method: POST
+          cors: true
 
   userAcessLogs:
     handler: src/mongoHandler.userAccessLogs
@@ -72,3 +78,4 @@ functions:
       - http:
           path: /user-access-logs
           method: GET
+          cors: true
