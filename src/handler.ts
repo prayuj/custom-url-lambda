@@ -2,7 +2,7 @@
  * Import the load for DynamoDB here and not in individual files
  * because when container reuse happens, the setup is already loaded
  */
-import documentClient from './dynamoDBSetup';
+import documentClient from './utils/dynamoDBSetup';
 import { setCustomUrl, getAllUrls, deleteUrl, mapUrl, setUrlNames } from './utils/urlOperations';
 import withCookieAuthenticator from './utils/cookieAuth';
 import { responseSchema } from './types';

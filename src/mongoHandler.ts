@@ -1,4 +1,4 @@
-import documentClient from "./dynamoDBSetup";
+import documentClient from "./utils/dynamoDBSetup";
 import { responseSchema } from "./types";
 import withCookieAuthenticator from "./utils/cookieAuth";
 import { getAccessLogs, logUrlHit, setUrlNames } from "./utils/urlOperations";
