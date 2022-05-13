@@ -3,7 +3,7 @@ import { responseSchema } from "../../types";
 
 const updateUrlCount = async (documentClient, url): Promise<responseSchema> => {
     const params = {
-        TableName: "URL_SHORTNER",
+        TableName: process.env.DYNAMO_TABLE_NAME,
         Key: {
             fromUrl: url,
         },

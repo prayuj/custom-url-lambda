@@ -12,7 +12,7 @@ export const getUrl = async (documentClient, fromUrl: string): Promise<responseS
     };
     
     const params = {
-        TableName: "URL_SHORTNER",
+        TableName: process.env.DYNAMO_TABLE_NAME,
         Key: {
             fromUrl
         }

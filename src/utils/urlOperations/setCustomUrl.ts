@@ -22,7 +22,7 @@ export const setCustomUrl = async (documentClient, toUrl: string, title?: string
     }
 
     const params = {
-        TableName: "URL_SHORTNER",
+        TableName: process.env.DYNAMO_TABLE_NAME,
         Item: {
             fromUrl: sluggifiedTitle,
             toUrl,

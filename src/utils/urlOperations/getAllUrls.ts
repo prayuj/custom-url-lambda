@@ -3,7 +3,7 @@ import { responseSchema } from "../../types";
 
 export const getAllUrls = async (documentClient):Promise<responseSchema> => {
     const params = {
-        TableName: "URL_SHORTNER",
+        TableName: process.env.DYNAMO_TABLE_NAME,
         ProjectionExpression: "fromUrl, toUrl, hits",
     };
     try {

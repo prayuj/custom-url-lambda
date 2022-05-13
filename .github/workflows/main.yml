@@ -26,3 +26,4 @@ jobs:
         URL_SHORTNER_TABLE_ARN: ${{ secrets.URL_SHORTNER_TABLE_ARN }}
         MONGODB_URL: ${{ secrets.MONGODB_URL }}
         COOKIE_ACCESS_TOKEN: ${{ secrets.COOKIE_ACCESS_TOKEN }}
+        DYNAMO_TABLE_NAME: ${{ secrets.DYNAMO_TABLE_NAME }}

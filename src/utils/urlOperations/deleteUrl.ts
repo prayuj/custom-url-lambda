@@ -5,7 +5,7 @@ import { responseSchema } from "../../types";
 
 export const deleteUrl = async (documentClient, url):Promise<responseSchema> => {
     const params = {
-        TableName: "URL_SHORTNER",
+        TableName: process.env.DYNAMO_TABLE_NAME,
         Key: {
             fromUrl: url,
         },
