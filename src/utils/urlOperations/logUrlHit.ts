@@ -11,12 +11,13 @@ export const logUrlHit = async (documentClient, url, additional):Promise<respons
             useUnifiedTopology: true,
         });
 
-        const { statusCode, body } = (await getUrl(documentClient, url));
+        const { statusCode, body, headers } = (await getUrl(documentClient, url));
 
         if(statusCode !== 200) {
             return {
                 statusCode,
-                body
+                body,
+                headers,
             };
         }
         
@@ -34,12 +35,20 @@ export const logUrlHit = async (documentClient, url, additional):Promise<respons
             statusCode: 200,
             body: JSON.stringify({
                 message: 'URL hit logged',
-            })
+            }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         };   
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ error })
+            body: JSON.stringify({ error }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         }
     }
 

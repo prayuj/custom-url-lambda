@@ -9,7 +9,11 @@ const withCookieAuthenticator = async (event, context, callBack): Promise<respon
     if (!isAuthenticatedWithCookie(event.headers?.Cookie)) 
         return {
             statusCode: 401,
-            body: JSON.stringify({ message: 'Unauthorized' })};    
+            body: JSON.stringify({ message: 'Unauthorized' }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }};    
 
     return await callBack(event, context);
     

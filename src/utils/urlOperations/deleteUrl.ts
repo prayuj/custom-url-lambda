@@ -28,7 +28,11 @@ export const deleteUrl = async (documentClient, url):Promise<responseSchema> => 
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ url: Attributes.fromUrl })
+            body: JSON.stringify({ url: Attributes.fromUrl }),
+            headers: {
+            'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         };
     } catch (error) {
 
@@ -37,13 +41,21 @@ export const deleteUrl = async (documentClient, url):Promise<responseSchema> => 
                 statusCode: 404,
                 body: JSON.stringify({
                     error: 'Could not find resource'
-                })
+                }),
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                }
             }
         }
 
         return {
             statusCode: 500,
-            body: JSON.stringify({ error })
+            body: JSON.stringify({ error }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         }
     }
 }

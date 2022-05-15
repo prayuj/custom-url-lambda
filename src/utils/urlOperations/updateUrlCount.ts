@@ -19,14 +19,22 @@ const updateUrlCount = async (documentClient, url): Promise<responseSchema> => {
         if (data.Attributes) {
             return {
                 statusCode: 200,
-                body: JSON.stringify({ item: data.Attributes })
+                body: JSON.stringify({ item: data.Attributes }),
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                }
 };
         }
         return {
             statusCode: 404,
             body: JSON.stringify({
                 error: 'Could not find resource'
-            })
+            }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         }
     } catch (error) {
         if (error.name === "ConditionalCheckFailedException") {
@@ -34,13 +42,21 @@ const updateUrlCount = async (documentClient, url): Promise<responseSchema> => {
                 statusCode: 404,
                 body: JSON.stringify({
                     error: 'Could not find resource'
-                })
+                }),
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                }
             }
         }
 
         return {
             statusCode: 500,
-            body: JSON.stringify(error)
+            body: JSON.stringify(error),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         }
     }
 

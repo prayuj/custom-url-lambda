@@ -4,7 +4,11 @@ import { responseSchema } from '../../types';
 export const getUrl = async (documentClient, fromUrl: string): Promise<responseSchema> => {
     if (!fromUrl) return {
         statusCode: 400,
-        body: JSON.stringify({ message: 'No URL provided' })
+        body: JSON.stringify({ message: 'No URL provided' }),
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': true,
+        }
     };
     
     const params = {
@@ -17,19 +21,31 @@ export const getUrl = async (documentClient, fromUrl: string): Promise<responseS
         const data = await documentClient.send(new GetCommand(params));
         if (data.Item)
             return { statusCode: 200,
-                body: JSON.stringify({ url: data.Item.toUrl })
+                body: JSON.stringify({ url: data.Item.toUrl }),
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                }
             };
 
         return {
             statusCode: 404,
             body: JSON.stringify({
                 error: 'Could not find resource'
-            })
+            }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         }
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify(error)
+            body: JSON.stringify(error),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         }
     }
 };
