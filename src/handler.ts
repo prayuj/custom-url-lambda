@@ -8,7 +8,7 @@ import documentClient from './utils/dynamoDBSetup';
 import { setCustomUrl, getAllUrls, deleteUrl, mapUrl } from './utils/urlOperations';
 import withAuthenticator from './utils/headerAuth';
 import { responseSchema } from './types';
-import setAuthResponseHeaders from './utils/setHeaders';
+import setResponseHeaders from './utils/setHeaders';
 
 module.exports.mapUrl = async (event: APIGatewayEvent):Promise<responseSchema> => {
     return await mapUrl(documentClient, event.pathParameters?.url);
@@ -36,17 +36,17 @@ module.exports.setCustomUrl = middy(async (event: APIGatewayEvent): Promise<resp
         return await setCustomUrl(documentClient, url, title);   
 })
 .before(withAuthenticator)
-.after(setAuthResponseHeaders);
+.after(setResponseHeaders);
 
 module.exports.allUrls = middy(async (): Promise<responseSchema> => {
     return await getAllUrls(documentClient);
 })
 .before(withAuthenticator)
-.after(setAuthResponseHeaders);
+.after(setResponseHeaders);
 
 module.exports.deleteUrl = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
     const { url } = JSON.parse(event.body);
     return await deleteUrl(documentClient, url);
 })
 .before(withAuthenticator)
-.after(setAuthResponseHeaders);
+.after(setResponseHeaders);

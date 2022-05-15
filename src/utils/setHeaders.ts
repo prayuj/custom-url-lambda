@@ -1,6 +1,6 @@
 import { ALLOWED_ORIGINS } from "./const";
 
-const setAuthResponseHeaders = response => {
+const setResponseHeaders = response => {
     const { Origin } = response.event.headers;
     if (ALLOWED_ORIGINS.includes(Origin)) {
         response.response.headers = {
@@ -14,4 +14,4 @@ const setAuthResponseHeaders = response => {
     }
 }
 
-export default setAuthResponseHeaders;
+export default setResponseHeaders;

@@ -4,7 +4,7 @@ import documentClient from "./utils/dynamoDBSetup";
 import { responseSchema } from "./types";
 import withAuthenticator from "./utils/headerAuth";
 import { getAccessLogs, logUrlHit, setUrlNames } from "./utils/urlOperations";
-import setAuthResponseHeaders from "./utils/setHeaders";
+import setResponseHeaders from "./utils/setHeaders";
 
 module.exports.logUrlHit = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
     const url = event.pathParameters?.url;
@@ -20,7 +20,7 @@ module.exports.logUrlHit = middy(async (event: APIGatewayEvent): Promise<respons
     return await logUrlHit(documentClient, url, JSON.stringify(additional));
 })
 .before(withAuthenticator)
-.after(setAuthResponseHeaders);
+.after(setResponseHeaders);
 
 module.exports.userAccessLogs = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
     const sort = {};
@@ -43,11 +43,11 @@ module.exports.userAccessLogs = middy(async (event: APIGatewayEvent): Promise<re
     }
 })
 .before(withAuthenticator)
-.after(setAuthResponseHeaders);
+.after(setResponseHeaders);
 
 module.exports.setUrlNames = middy(async (event: any): Promise<responseSchema> => {
     const { names } = JSON.parse(event.body);
     return await setUrlNames(names);
 })
 .before(withAuthenticator)
-.after(setAuthResponseHeaders);
+.after(setResponseHeaders);
