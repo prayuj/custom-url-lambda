@@ -3,7 +3,7 @@
  * because when container reuse happens, the setup is already loaded
  */
 import documentClient from './utils/dynamoDBSetup';
-import { setCustomUrl, getAllUrls, deleteUrl, mapUrl, setUrlNames } from './utils/urlOperations';
+import { setCustomUrl, getAllUrls, deleteUrl, mapUrl } from './utils/urlOperations';
 import withCookieAuthenticator from './utils/cookieAuth';
 import { responseSchema } from './types';
 
@@ -18,7 +18,7 @@ module.exports.setCustomUrl = async (event, context): Promise<responseSchema> =>
             return {
                 statusCode: 400,
                 body: JSON.stringify({
-                    message: 'URL are required',
+                    message: 'URL is required',
                 }),
                 headers: {
                     'Access-Control-Allow-Origin': '*',
