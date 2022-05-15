@@ -32,7 +32,19 @@ functions:
       - http:
           path: /t/{url}
           method: GET
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - key
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
 
   setCustomUrl:
     handler: src/handler.setCustomUrl
@@ -40,7 +52,19 @@ functions:
       - http:
           path: /shorten-url
           method: POST
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - key
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
   
   allUrls:
     handler: src/handler.allUrls
@@ -48,7 +72,19 @@ functions:
       - http:
           path: /all-urls
           method: GET
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - key
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
 
   deleteUrl:
     handler: src/handler.deleteUrl
@@ -57,7 +93,18 @@ functions:
           path: /url
           method: DELETE
           cors:
-            allowCredentials: true
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - key
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
 
   setUrlNames:
     handler: src/mongoHandler.setUrlNames
@@ -65,7 +112,19 @@ functions:
       - http:
           path: /set-url-names
           method: POST
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - key
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
   
   logUrlHit:
     handler: src/mongoHandler.logUrlHit
@@ -73,7 +132,19 @@ functions:
       - http:
           path: /log/{url}
           method: POST
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - key
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
 
   userAcessLogs:
     handler: src/mongoHandler.userAccessLogs
@@ -81,7 +152,19 @@ functions:
       - http:
           path: /user-access-logs
           method: GET
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - key
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
 custom:
   # serverless offline plugin setup
   serverless-offline:
