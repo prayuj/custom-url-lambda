@@ -2,7 +2,7 @@ import middy from "@middy/core";
 import { APIGatewayEvent } from 'aws-lambda';
 import documentClient from "./utils/dynamoDBSetup";
 import { responseSchema } from "./types";
-import withCookieAuthenticator from "./utils/cookieAuth";
+import withAuthenticator from "./utils/headerAuth";
 import { getAccessLogs, logUrlHit, setUrlNames } from "./utils/urlOperations";
 import setAuthResponseHeaders from "./utils/setHeaders";
 
@@ -19,7 +19,7 @@ module.exports.logUrlHit = middy(async (event: APIGatewayEvent): Promise<respons
     }
     return await logUrlHit(documentClient, url, JSON.stringify(additional));
 })
-.before(withCookieAuthenticator)
+.before(withAuthenticator)
 .after(setAuthResponseHeaders);
 
 module.exports.userAccessLogs = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
@@ -42,12 +42,12 @@ module.exports.userAccessLogs = middy(async (event: APIGatewayEvent): Promise<re
         };
     }
 })
-.before(withCookieAuthenticator)
+.before(withAuthenticator)
 .after(setAuthResponseHeaders);
 
 module.exports.setUrlNames = middy(async (event: any): Promise<responseSchema> => {
     const { names } = JSON.parse(event.body);
     return await setUrlNames(names);
 })
-.before(withCookieAuthenticator)
+.before(withAuthenticator)
 .after(setAuthResponseHeaders);

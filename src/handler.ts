@@ -6,7 +6,7 @@ import middy from '@middy/core';
 import { APIGatewayEvent } from 'aws-lambda';
 import documentClient from './utils/dynamoDBSetup';
 import { setCustomUrl, getAllUrls, deleteUrl, mapUrl } from './utils/urlOperations';
-import withCookieAuthenticator from './utils/cookieAuth';
+import withAuthenticator from './utils/headerAuth';
 import { responseSchema } from './types';
 import setAuthResponseHeaders from './utils/setHeaders';
 
@@ -35,18 +35,18 @@ module.exports.setCustomUrl = middy(async (event: APIGatewayEvent): Promise<resp
         }
         return await setCustomUrl(documentClient, url, title);   
 })
-.before(withCookieAuthenticator)
+.before(withAuthenticator)
 .after(setAuthResponseHeaders);
 
 module.exports.allUrls = middy(async (): Promise<responseSchema> => {
     return await getAllUrls(documentClient);
 })
-.before(withCookieAuthenticator)
+.before(withAuthenticator)
 .after(setAuthResponseHeaders);
 
 module.exports.deleteUrl = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
     const { url } = JSON.parse(event.body);
     return await deleteUrl(documentClient, url);
 })
-.before(withCookieAuthenticator)
+.before(withAuthenticator)
 .after(setAuthResponseHeaders);
