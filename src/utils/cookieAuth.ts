@@ -5,18 +5,11 @@ const isAuthenticatedWithCookie = (cookies: string) => {
     return cookies.includes(`key=${process.env.COOKIE_ACCESS_TOKEN}`);
 };
 
-const withCookieAuthenticator = async (event, context, callBack): Promise<responseSchema> => {
-    if (!isAuthenticatedWithCookie(event.headers?.Cookie)) 
+const withCookieAuthenticator = async (request) => {
+    if (!isAuthenticatedWithCookie(request.event?.headers?.Cookie)) 
         return {
             statusCode: 401,
-            body: JSON.stringify({ message: 'Unauthorized' }),
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            }};    
-
-    return await callBack(event, context);
-    
+            body: JSON.stringify({ message: 'Unauthorized' }),};
 };
 
 export default withCookieAuthenticator;

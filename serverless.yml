@@ -10,6 +10,7 @@ provider:
     MONGODB_URL: ${env:MONGODB_URL}
     COOKIE_ACCESS_TOKEN: ${env:COOKIE_ACCESS_TOKEN}
     DYNAMO_TABLE_NAME: ${env:DYNAMO_TABLE_NAME}
+    ALLOWED_ORIGINS: ${env:ALLOWED_ORIGINS}
   iamRoleStatements:
     - Effect: Allow
       Action:

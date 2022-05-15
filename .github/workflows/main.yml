@@ -27,3 +27,4 @@ jobs:
         MONGODB_URL: ${{ secrets.MONGODB_URL }}
         COOKIE_ACCESS_TOKEN: ${{ secrets.COOKIE_ACCESS_TOKEN }}
         DYNAMO_TABLE_NAME: ${{ secrets.DYNAMO_TABLE_NAME }}
+        ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
