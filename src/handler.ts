@@ -2,16 +2,18 @@
  * Import the load for DynamoDB here and not in individual files
  * because when container reuse happens, the setup is already loaded
  */
+import middy from '@middy/core'
+import cors from '@middy/http-cors'
 import documentClient from './utils/dynamoDBSetup';
-import { setCustomUrl, getAllUrls, deleteUrl, mapUrl, setUrlNames } from './utils/urlOperations';
+import * as urlOperations from './utils/urlOperations';
 import withCookieAuthenticator from './utils/cookieAuth';
 import { responseSchema } from './types';
 
-module.exports.mapUrl = async (event):Promise<responseSchema> => {
-    return await mapUrl(documentClient, event.pathParameters?.url);
+const baseMapUrl = async (event):Promise<responseSchema> => {
+    return await urlOperations.mapUrl(documentClient, event.pathParameters?.url);
 };
 
-module.exports.setCustomUrl = async (event, context): Promise<responseSchema> => {
+const baseSetCustomUrl = async (event, context): Promise<responseSchema> => {
     return await withCookieAuthenticator(event, context, async (event) => {
         const { title, url } = JSON.parse(event.body);
         if (!url) {
@@ -19,27 +21,42 @@ module.exports.setCustomUrl = async (event, context): Promise<responseSchema> =>
                 statusCode: 400,
                 body: JSON.stringify({
                     message: 'URL are required',
-                }),
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': true,
-                }
+                })
             };
         }
 
-        return await setCustomUrl(documentClient, url, title);
+        return await urlOperations.setCustomUrl(documentClient, url, title);
     });    
 };
 
-module.exports.allUrls = async (event, context): Promise<responseSchema> => {
+const baseAllUrls = async (event, context): Promise<responseSchema> => {
     return await withCookieAuthenticator(event, context, async () => {
-        return await getAllUrls(documentClient);
+        return await urlOperations.getAllUrls(documentClient);
     });
 };
 
-module.exports.deleteUrl = async (event, context): Promise<responseSchema> => {
+const baseDeleteUrl = async (event, context): Promise<responseSchema> => {
     return await withCookieAuthenticator(event, context, async (event) => {
         const { url } = JSON.parse(event.body);
-        return await deleteUrl(documentClient, url);
+        return await urlOperations.deleteUrl(documentClient, url);
     });
 };
+
+const mapUrl = middy(baseMapUrl)
+    .use(cors({ credentials: true }));
+
+const setCustomUrl = middy(baseSetCustomUrl)
+    .use(cors({ credentials: true }));
+
+const allUrls = middy(baseAllUrls)
+    .use(cors({ credentials: true }));
+
+const deleteUrl = middy(baseDeleteUrl)
+    .use(cors({ credentials: true }));
+
+module.exports = {
+    mapUrl,
+    setCustomUrl,
+    allUrls,
+    deleteUrl,
+}

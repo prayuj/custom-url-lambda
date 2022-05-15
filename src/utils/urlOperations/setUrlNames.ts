@@ -26,20 +26,12 @@ export const setUrlNames = async (names: string[]):Promise<responseSchema> => {
             body: JSON.stringify({ 
                 success: 'Successfully Set New Unique Names',
                 slugsNotSet
-            }),
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            }
+            })
         };
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ error }),
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            }
+            body: JSON.stringify({ error })
         };
     }
 };

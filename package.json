@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "env-cmd serverless offline",
-    "deploy:local": "env-cmd serverless deploy"
+    "deploy:local": "env-cmd serverless deploy --stage dev"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +18,8 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.87.0",
     "@aws-sdk/lib-dynamodb": "^3.87.0",
+    "@middy/core": "^3.0.2",
+    "@middy/http-cors": "^3.0.2",
     "mongoose": "^6.3.3",
     "serverless-plugin-typescript": "^2.1.2",
     "typescript": "^4.6.4",

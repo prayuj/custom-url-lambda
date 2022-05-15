@@ -34,20 +34,12 @@ export const setCustomUrl = async (documentClient, toUrl: string, title?: string
         await documentClient.send(new PutCommand(params));
         return {
             statusCode: 200,
-            body: JSON.stringify({ url: sluggifiedTitle}),
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            }
+            body: JSON.stringify({ url: sluggifiedTitle})
         };
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify(error),
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            }
+            body: JSON.stringify(error)
         }
     }
 };

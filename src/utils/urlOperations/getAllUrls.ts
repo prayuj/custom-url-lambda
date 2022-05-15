@@ -12,20 +12,12 @@ export const getAllUrls = async (documentClient):Promise<responseSchema> => {
             statusCode: 200,
             body: JSON.stringify({
                 urls: data.Items,
-            }),
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            }
+            })
         }
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ error }),
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            }
+            body: JSON.stringify({ error })
         }
     }
 };

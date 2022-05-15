@@ -3,13 +3,12 @@ import updateUrlCount from "./updateUrlCount";
 
 export const mapUrl = async (documentClient, fromUrl: string): Promise<responseSchema> => {
 
-    const { statusCode, body, headers } = (await updateUrlCount(documentClient, fromUrl));
+    const { statusCode, body } = (await updateUrlCount(documentClient, fromUrl));
 
     if (statusCode !== 200) {
         return {
             statusCode,
-            body,
-            headers
+            body
         };
     }
 
@@ -17,11 +16,7 @@ export const mapUrl = async (documentClient, fromUrl: string): Promise<responseS
         statusCode,
         body: JSON.stringify({
             url: JSON.parse(body).item.toUrl,
-        }),
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': true,
-        }     
+        })    
     }
     
 };
