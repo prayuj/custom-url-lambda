@@ -19,7 +19,6 @@ module.exports.logUrlHit = middy(async (event: APIGatewayEvent): Promise<respons
     }
     return await logUrlHit(documentClient, url, JSON.stringify(additional));
 })
-.before(withAuthenticator)
 .after(setResponseHeaders);
 
 module.exports.userAccessLogs = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
