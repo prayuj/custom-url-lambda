@@ -11,7 +11,7 @@ import withAuthenticator from './utils/headerAuth';
 import { responseSchema } from './types';
 
 module.exports.mapUrl = middy(async (event: APIGatewayEvent):Promise<responseSchema> => {
-    return await mapUrl(documentClient, event.pathParameters?.url);
+    return await mapUrl(documentClient, event.pathParameters?.url, event.queryStringParameters?.additional);
 })
 .use(cors({ origin: '*' }));
 

@@ -125,46 +125,7 @@ functions:
               - Access-Control-Allow-Headers
               - Access-Control-Allow-Origin
             allowCredentials: false
-  
-  logUrlHit:
-    handler: src/mongoHandler.logUrlHit
-    events:
-      - http:
-          path: /log/{url}
-          method: POST
-          cors:
-            origin: '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-              - X-Amz-User-Agent
-              - key
-              - Access-Control-Allow-Headers
-              - Access-Control-Allow-Origin
-            allowCredentials: false
 
-  userAcessLogs:
-    handler: src/mongoHandler.userAccessLogs
-    events:
-      - http:
-          path: /user-access-logs
-          method: GET
-          cors:
-            origin: '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-              - X-Amz-User-Agent
-              - key
-              - Access-Control-Allow-Headers
-              - Access-Control-Allow-Origin
-            allowCredentials: false
 custom:
   # serverless offline plugin setup
   serverless-offline:
