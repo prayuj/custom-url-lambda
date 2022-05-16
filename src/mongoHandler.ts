@@ -20,7 +20,7 @@ module.exports.logUrlHit = middy(async (event: APIGatewayEvent): Promise<respons
     }
     return await logUrlHit(documentClient, url, JSON.stringify(additional));
 })
-.use(cors());
+.use(cors({ origin: '*' }));
 
 module.exports.userAccessLogs = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
     const sort = {};
@@ -43,11 +43,11 @@ module.exports.userAccessLogs = middy(async (event: APIGatewayEvent): Promise<re
     }
 })
 .before(withAuthenticator)
-.use(cors());
+.use(cors({ origin: '*' }));
 
 module.exports.setUrlNames = middy(async (event: any): Promise<responseSchema> => {
     const { names } = JSON.parse(event.body);
     return await setUrlNames(names);
 })
 .before(withAuthenticator)
-.use(cors());
+.use(cors({ origin: '*' }));

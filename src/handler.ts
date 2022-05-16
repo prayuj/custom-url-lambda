@@ -37,17 +37,17 @@ module.exports.setCustomUrl = middy(async (event: APIGatewayEvent): Promise<resp
         return await setCustomUrl(documentClient, url, title);   
 })
 .before(withAuthenticator)
-.use(cors());
+.use(cors({ origin: '*' }));
 
 module.exports.allUrls = middy(async (): Promise<responseSchema> => {
     return await getAllUrls(documentClient);
 })
 .before(withAuthenticator)
-.use(cors());
+.use(cors({ origin: '*' }));
 
 module.exports.deleteUrl = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
     const { url } = JSON.parse(event.body);
     return await deleteUrl(documentClient, url);
 })
 .before(withAuthenticator)
-.use(cors());
+.use(cors({ origin: '*' }));
