@@ -11,9 +11,10 @@ import withAuthenticator from './utils/headerAuth';
 import { responseSchema } from './types';
 import setResponseHeaders from './utils/setHeaders';
 
-module.exports.mapUrl = async (event: APIGatewayEvent):Promise<responseSchema> => {
+module.exports.mapUrl = middy(async (event: APIGatewayEvent):Promise<responseSchema> => {
     return await mapUrl(documentClient, event.pathParameters?.url);
-};
+})
+.use(cors({ origin: '*' }));
 
 module.exports.setCustomUrl = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
         if (!event.body) {
