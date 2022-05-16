@@ -9,7 +9,6 @@ import documentClient from './utils/dynamoDBSetup';
 import { setCustomUrl, getAllUrls, deleteUrl, mapUrl } from './utils/urlOperations';
 import withAuthenticator from './utils/headerAuth';
 import { responseSchema } from './types';
-import setResponseHeaders from './utils/setHeaders';
 
 module.exports.mapUrl = middy(async (event: APIGatewayEvent):Promise<responseSchema> => {
     return await mapUrl(documentClient, event.pathParameters?.url);

@@ -5,7 +5,6 @@ import documentClient from "./utils/dynamoDBSetup";
 import { responseSchema } from "./types";
 import withAuthenticator from "./utils/headerAuth";
 import { getAccessLogs, logUrlHit, setUrlNames } from "./utils/urlOperations";
-import setResponseHeaders from "./utils/setHeaders";
 
 module.exports.logUrlHit = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
     const url = event.pathParameters?.url;
