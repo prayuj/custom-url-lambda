@@ -42,12 +42,12 @@ module.exports.userAccessLogs = middy(async (event: APIGatewayEvent): Promise<re
         };
     }
 })
-.before(withAuthenticator)
-.use(cors({ origin: '*' }));
+.use(cors({ origin: '*' }))
+.before(withAuthenticator);
 
 module.exports.setUrlNames = middy(async (event: any): Promise<responseSchema> => {
     const { names } = JSON.parse(event.body);
     return await setUrlNames(names);
 })
-.before(withAuthenticator)
-.use(cors({ origin: '*' }));
+.use(cors({ origin: '*' }))
+.before(withAuthenticator);
