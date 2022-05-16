@@ -1,7 +1,7 @@
 import { responseSchema } from "../../types";
 import updateUrlCount from "./updateUrlCount";
 
-export const mapUrl = async (documentClient, fromUrl: string, additional: string): Promise<responseSchema> => {
+export const mapUrl = async (documentClient, fromUrl: string, queryStringParameters: object): Promise<responseSchema> => {
     const { statusCode, body } = (await updateUrlCount(documentClient, fromUrl));
 
     if (statusCode !== 200) {
@@ -14,7 +14,7 @@ export const mapUrl = async (documentClient, fromUrl: string, additional: string
     const url = JSON.parse(body).item.toUrl;
 
     console.log('Log Hit for: ', fromUrl);
-    console.log('Additional: ', JSON.parse(additional));
+    console.log('queryStringParameters: ', queryStringParameters);
     console.log('Mapped Url: ', url);
 
     return {
