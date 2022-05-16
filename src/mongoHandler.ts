@@ -1,4 +1,5 @@
 import middy from "@middy/core";
+import cors from '@middy/http-cors'
 import { APIGatewayEvent } from 'aws-lambda';
 import documentClient from "./utils/dynamoDBSetup";
 import { responseSchema } from "./types";
@@ -19,7 +20,7 @@ module.exports.logUrlHit = middy(async (event: APIGatewayEvent): Promise<respons
     }
     return await logUrlHit(documentClient, url, JSON.stringify(additional));
 })
-.after(setResponseHeaders);
+.use(cors());
 
 module.exports.userAccessLogs = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
     const sort = {};
@@ -42,11 +43,11 @@ module.exports.userAccessLogs = middy(async (event: APIGatewayEvent): Promise<re
     }
 })
 .before(withAuthenticator)
-.after(setResponseHeaders);
+.use(cors());
 
 module.exports.setUrlNames = middy(async (event: any): Promise<responseSchema> => {
     const { names } = JSON.parse(event.body);
     return await setUrlNames(names);
 })
 .before(withAuthenticator)
-.after(setResponseHeaders);
+.use(cors());

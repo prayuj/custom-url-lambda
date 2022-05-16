@@ -3,6 +3,7 @@
  * because when container reuse happens, the setup is already loaded
  */
 import middy from '@middy/core';
+import cors from '@middy/http-cors'
 import { APIGatewayEvent } from 'aws-lambda';
 import documentClient from './utils/dynamoDBSetup';
 import { setCustomUrl, getAllUrls, deleteUrl, mapUrl } from './utils/urlOperations';
@@ -36,17 +37,17 @@ module.exports.setCustomUrl = middy(async (event: APIGatewayEvent): Promise<resp
         return await setCustomUrl(documentClient, url, title);   
 })
 .before(withAuthenticator)
-.after(setResponseHeaders);
+.use(cors());
 
 module.exports.allUrls = middy(async (): Promise<responseSchema> => {
     return await getAllUrls(documentClient);
 })
 .before(withAuthenticator)
-.after(setResponseHeaders);
+.use(cors());
 
 module.exports.deleteUrl = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
     const { url } = JSON.parse(event.body);
     return await deleteUrl(documentClient, url);
 })
 .before(withAuthenticator)
-.after(setResponseHeaders);
+.use(cors());
