@@ -27,7 +27,7 @@ plugins:
 
 functions:
   mapUrl:
-    handler: src/handler.mapUrl
+    handler: src/mappingHandler.mapUrl
     events:
       - http:
           path: /t/{url}
@@ -47,7 +47,7 @@ functions:
             allowCredentials: false
 
   setCustomUrl:
-    handler: src/handler.setCustomUrl
+    handler: src/adminHandler.setCustomUrl
     events:
       - http:
           path: /shorten-url
@@ -67,7 +67,7 @@ functions:
             allowCredentials: false
   
   allUrls:
-    handler: src/handler.allUrls
+    handler: src/adminHandler.allUrls
     events:
       - http:
           path: /all-urls
@@ -87,7 +87,7 @@ functions:
             allowCredentials: false
 
   deleteUrl:
-    handler: src/handler.deleteUrl
+    handler: src/adminHandler.deleteUrl
     events:
       - http:
           path: /url

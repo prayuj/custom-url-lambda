@@ -1,16 +1,25 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "rootDir": ".",
-        "target": "es6",
-        "sourceMap": true,
-        "outDir": "dist",
+        "preserveConstEnums": true,
+        "strictNullChecks": true,
+        "inlineSources": true,
+        "inlineSourceMap": true,
+        "sourceRoot": "/",
+        "baseUrl": "./src",
+        "paths": {
+            "@utils/*": ["./utils/*"],
+            "@types": ["./types/index.ts"],
+            "@mongoModels/*": ["./models/*"],
+        },
+        "target": "es2017",
+        "outDir": ".build",
+        "module": "es2015",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
         "lib": [
-            "es2020",
-            "dom"
+            "es2017"
         ],
-    },
-    "exclude": [
-        "node_modules"
-    ]
+        "rootDir": "./src",
+        "resolveJsonModule": true
+    }
 }
