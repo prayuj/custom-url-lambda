@@ -1,7 +1,7 @@
 import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
-import { responseSchema } from "../../types";
+import { responseSchema } from "@types";
 
-const updateUrlCount = async (documentClient, url): Promise<responseSchema> => {
+export const updateUrlCount = async (documentClient, url): Promise<responseSchema> => {
     const params = {
         TableName: process.env.DYNAMO_TABLE_NAME,
         Key: {
@@ -45,5 +45,3 @@ const updateUrlCount = async (documentClient, url): Promise<responseSchema> => {
     }
 
 };
-
-export default updateUrlCount;

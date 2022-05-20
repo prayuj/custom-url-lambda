@@ -1,5 +1,5 @@
 import { ScanCommand } from "@aws-sdk/lib-dynamodb";
-import { responseSchema } from "../../types";
+import { responseSchema } from "@types";
 
 export const getAllUrls = async (documentClient):Promise<responseSchema> => {
     const params = {

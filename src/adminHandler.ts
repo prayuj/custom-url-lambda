@@ -5,17 +5,12 @@
 import middy from '@middy/core';
 import cors from '@middy/http-cors'
 import { APIGatewayEvent } from 'aws-lambda';
-import documentClient from './utils/dynamoDBSetup';
-import { setCustomUrl, getAllUrls, deleteUrl, mapUrl } from './utils/urlOperations';
-import withAuthenticator from './utils/headerAuth';
-import { responseSchema } from './types';
+import documentClient from '@utils/dynamoDBSetup';
+import * as urlOperations from '@utils/urlOperations';
+import withAuthenticator from '@utils/headerAuth';
+import { responseSchema } from '@types';
 
-module.exports.mapUrl = middy(async (event: APIGatewayEvent):Promise<responseSchema> => {
-    return await mapUrl(documentClient, event.pathParameters?.url, event.queryStringParameters);
-})
-.use(cors({ origin: '*' }));
-
-module.exports.setCustomUrl = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
+export const setCustomUrl = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
         if (!event.body) {
             return {
                 statusCode: 400,
@@ -34,20 +29,20 @@ module.exports.setCustomUrl = middy(async (event: APIGatewayEvent): Promise<resp
                 })
             };
         }
-        return await setCustomUrl(documentClient, url, title);   
+    return await urlOperations.setCustomUrl(documentClient, url, title);   
 })
 .use(cors({ origin: '*' }))
 .before(withAuthenticator);
 
-module.exports.allUrls = middy(async (): Promise<responseSchema> => {
-    return await getAllUrls(documentClient);
+export const allUrls = middy(async (): Promise<responseSchema> => {
+    return await urlOperations.getAllUrls(documentClient);
 })
 .use(cors({ origin: '*' }))
 .before(withAuthenticator);
 
-module.exports.deleteUrl = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
-    const { url } = JSON.parse(event.body);
-    return await deleteUrl(documentClient, url);
+export const deleteUrl = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
+    const { url } = JSON.parse(event.body || '{}');
+    return await urlOperations.deleteUrl(documentClient, url);
 })
 .use(cors({ origin: '*' }))
 .before(withAuthenticator);
