@@ -6,14 +6,9 @@ import middy from '@middy/core';
 import cors from '@middy/http-cors'
 import { APIGatewayEvent } from 'aws-lambda';
 import documentClient from './utils/dynamoDBSetup';
-import { setCustomUrl, getAllUrls, deleteUrl, mapUrl } from './utils/urlOperations';
+import { setCustomUrl, getAllUrls, deleteUrl } from './utils/urlOperations';
 import withAuthenticator from './utils/headerAuth';
 import { responseSchema } from './types';
-
-module.exports.mapUrl = middy(async (event: APIGatewayEvent):Promise<responseSchema> => {
-    return await mapUrl(documentClient, event.pathParameters?.url, event.queryStringParameters);
-})
-.use(cors({ origin: '*' }));
 
 module.exports.setCustomUrl = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
         if (!event.body) {

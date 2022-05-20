@@ -27,7 +27,7 @@ plugins:
 
 functions:
   mapUrl:
-    handler: src/handler.mapUrl
+    handler: src/mappingHandler.mapUrl
     events:
       - http:
           path: /t/{url}
