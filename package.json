@@ -25,8 +25,8 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.87.0",
     "@aws-sdk/lib-dynamodb": "^3.87.0",
-    "@middy/core": "^3.0.3",
-    "@middy/http-cors": "^3.0.3",
+    "@middy/core": "^3.0.2",
+    "@middy/http-cors": "^3.0.2",
     "@types/aws-lambda": "^8.10.97",
     "mongoose": "^6.3.3",
     "url-slug": "^3.0.3"
