@@ -22,12 +22,12 @@ provider:
       Resource: "${env:URL_SHORTNER_TABLE_ARN}"
 
 plugins:
-  - serverless-webpack
   - serverless-offline
+  - serverless-plugin-typescript
 
 functions:
   mapUrl:
-    handler: src/mappingHandler.mapUrl
+    handler: src/handler.mapUrl
     events:
       - http:
           path: /t/{url}
@@ -47,7 +47,7 @@ functions:
             allowCredentials: false
 
   setCustomUrl:
-    handler: src/adminHandler.setCustomUrl
+    handler: src/handler.setCustomUrl
     events:
       - http:
           path: /shorten-url
@@ -67,7 +67,7 @@ functions:
             allowCredentials: false
   
   allUrls:
-    handler: src/adminHandler.allUrls
+    handler: src/handler.allUrls
     events:
       - http:
           path: /all-urls
@@ -87,7 +87,7 @@ functions:
             allowCredentials: false
 
   deleteUrl:
-    handler: src/adminHandler.deleteUrl
+    handler: src/handler.deleteUrl
     events:
       - http:
           path: /url
@@ -130,9 +130,3 @@ custom:
   # serverless offline plugin setup
   serverless-offline:
     httpPort: 5000
-
-  webpack:
-    webpackConfig: 'webpack.config.js' # Name of webpack configuration file
-    includeModules: false # Node modules configuration for packaging
-    packager: 'npm' # Packager that will be used to package your external modules
-    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore

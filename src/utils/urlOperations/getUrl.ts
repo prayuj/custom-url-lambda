@@ -1,5 +1,5 @@
 import { GetCommand } from '@aws-sdk/lib-dynamodb';
-import { responseSchema } from '@types';
+import { responseSchema } from '../../types';
 
 export const getUrl = async (documentClient, fromUrl: string): Promise<responseSchema> => {
     if (!fromUrl) return {

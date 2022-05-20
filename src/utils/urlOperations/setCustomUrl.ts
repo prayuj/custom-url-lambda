@@ -1,31 +1,19 @@
-import mongoose from 'mongoose';
-import uniqueName from '@mongoModels/uniqueName.model';
+const mongoose = require("mongoose");
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import * as urlSlug from 'url-slug'
-import { responseSchema } from "@types";
+import uniqueName from "../../models/uniqueName.model";
+import { responseSchema } from "../../types";
 
 export const setCustomUrl = async (documentClient, toUrl: string, title?: string): Promise<responseSchema> => {
     let setFromUniqueNames = false, sluggifiedTitle = '';
 
-    const url = process.env.MONGODB_URL || '';
-    if (!url) return {
-        statusCode: 500,
-        body: JSON.stringify({
-            message: "Enviroment Variable MongoDB URL is not defined",
-        }),
-    }
-    mongoose.connect(url);
+    mongoose.connect(process.env.MONGODB_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
 
     if (!title) {
-        let result = await uniqueName.findOneAndDelete();
-        console.log(result);
-        if (!(result && result?.name)) return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: "Could not find unique name, please try again with a title!",
-            }),
-        }
-        sluggifiedTitle = result.name;
+        sluggifiedTitle = (await uniqueName.findOneAndDelete()).name;
         setFromUniqueNames = true;
     } else {
         sluggifiedTitle = urlSlug.convert(title);

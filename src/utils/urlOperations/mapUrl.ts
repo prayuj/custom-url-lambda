@@ -1,8 +1,7 @@
-import { APIGatewayProxyEventQueryStringParameters } from "aws-lambda";
-import { responseSchema } from "@types";
-import { updateUrlCount } from "@utils/urlOperations";
+import { responseSchema } from "../../types";
+import updateUrlCount from "./updateUrlCount";
 
-export const mapUrl = async (documentClient, fromUrl: string | undefined, queryStringParameters: APIGatewayProxyEventQueryStringParameters | null): Promise<responseSchema> => {
+export const mapUrl = async (documentClient, fromUrl: string, queryStringParameters: object): Promise<responseSchema> => {
     const { statusCode, body } = (await updateUrlCount(documentClient, fromUrl));
 
     if (statusCode !== 200) {

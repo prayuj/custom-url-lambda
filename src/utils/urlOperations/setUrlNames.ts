@@ -1,21 +1,15 @@
-import mongoose from 'mongoose';
-import uniqueName from '@mongoModels/uniqueName.model';
+const mongoose = require('mongoose');
 import * as urlSlug from 'url-slug';
-import { responseSchema } from '@types';
+import uniqueName from "../../models/uniqueName.model";
+import { responseSchema } from '../../types';
 
 export const setUrlNames = async (names: string[]):Promise<responseSchema> => {
     try {
-        const slugsNotSet: string[] = [];
-
-        const url = process.env.MONGODB_URL || '';
-        if (!url) return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: "Enviroment Variable MongoDB URL is not defined",
-            }),
-        }
-        mongoose.connect(url);
-
+        const slugsNotSet = [];
+        mongoose.connect(process.env.MONGODB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
         for (let index = 0; index < names.length; index++) {
             const sluggifiedTitle = urlSlug.convert(names[index]);
             const name = new uniqueName({
@@ -24,7 +18,7 @@ export const setUrlNames = async (names: string[]):Promise<responseSchema> => {
             try {
                 await name.save();
             } catch (error) {
-                slugsNotSet.push()
+                slugsNotSet.push(sluggifiedTitle)
             }
         }
         return {
