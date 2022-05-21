@@ -28,3 +28,4 @@ jobs:
         COOKIE_ACCESS_TOKEN: ${{ secrets.COOKIE_ACCESS_TOKEN }}
         DYNAMO_TABLE_NAME: ${{ secrets.DYNAMO_TABLE_NAME }}
         LOG_GROUP_NAME: ${{ secrets.LOG_GROUP_NAME }}
+        LOG_GROUP_ARN: ${{ secrets.LOG_GROUP_ARN }}

@@ -20,6 +20,11 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:Scan
       Resource: "${env:URL_SHORTNER_TABLE_ARN}"
+    - Effect: Allow
+      Action:
+        - logs:DescribeLogStreams
+        - logs:GetLogEvents
+      Resource: "${env:LOG_GROUP_ARN}"
 
 plugins:
   - serverless-offline
