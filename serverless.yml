@@ -10,7 +10,7 @@ provider:
     MONGODB_URL: ${env:MONGODB_URL}
     COOKIE_ACCESS_TOKEN: ${env:COOKIE_ACCESS_TOKEN}
     DYNAMO_TABLE_NAME: ${env:DYNAMO_TABLE_NAME}
-    ALLOWED_ORIGINS: ${env:ALLOWED_ORIGINS}
+    LOG_GROUP_NAME: ${env:LOG_GROUP_NAME}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -125,6 +125,47 @@ functions:
               - Access-Control-Allow-Headers
               - Access-Control-Allow-Origin
             allowCredentials: false
+
+  getCloudWatchLogStreams:
+    handler: src/handler.getCloudWatchLogStreams
+    events:
+      - http:
+          path: /get-cloudwatch-log-streams
+          method: GET
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - key
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
+
+  getLogsFromStream:
+    handler: src/handler.getLogsFromStream
+    events:
+      - http:
+          path: /get-logs-from-stream
+          method: GET
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - key
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
+
 
 custom:
   # serverless offline plugin setup

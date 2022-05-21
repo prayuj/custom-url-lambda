@@ -9,6 +9,7 @@ import documentClient from './utils/dynamoDBSetup';
 import { setCustomUrl, getAllUrls, deleteUrl } from './utils/urlOperations';
 import withAuthenticator from './utils/headerAuth';
 import { responseSchema } from './types';
+import { getCloudWatchLogStreams, getLogsFromStream } from './utils/logOperations';
 
 module.exports.setCustomUrl = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
         if (!event.body) {
@@ -43,6 +44,25 @@ module.exports.allUrls = middy(async (): Promise<responseSchema> => {
 module.exports.deleteUrl = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
     const { url } = JSON.parse(event.body);
     return await deleteUrl(documentClient, url);
+})
+.use(cors({ origin: '*' }))
+.before(withAuthenticator);
+
+module.exports.getCloudWatchLogStreams = middy(async (): Promise<responseSchema> => {
+    return await getCloudWatchLogStreams();
+})
+.use(cors({ origin: '*' }))
+.before(withAuthenticator);
+
+module.exports.getLogsFromStream = middy(async (event: APIGatewayEvent): Promise<responseSchema> => {
+    const { logStreamName } = event.queryStringParameters;
+    if(!logStreamName) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ message: 'No logStreamName provided' }),
+        };
+    }
+    return await getLogsFromStream(logStreamName);
 })
 .use(cors({ origin: '*' }))
 .before(withAuthenticator);

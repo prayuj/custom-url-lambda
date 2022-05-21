@@ -16,6 +16,7 @@
     "serverless-offline": "^8.5.0"
   },
   "dependencies": {
+    "@aws-sdk/client-cloudwatch-logs": "^3.96.0",
     "@aws-sdk/client-dynamodb": "^3.87.0",
     "@aws-sdk/lib-dynamodb": "^3.87.0",
     "@middy/core": "^3.0.2",
