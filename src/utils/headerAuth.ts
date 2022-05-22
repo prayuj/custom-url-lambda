@@ -8,6 +8,9 @@ const withAuthenticator = async (request) => {
         return {
             statusCode: 401,
             body: JSON.stringify({ message: 'Unauthorized' }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
         };
 };
 
