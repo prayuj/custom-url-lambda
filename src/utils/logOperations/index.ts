@@ -9,7 +9,8 @@ export const getCloudWatchLogStreams = async ():Promise<responseSchema> => {
         const command = new DescribeLogStreamsCommand({
             logGroupName: process.env.LOG_GROUP_NAME,
             descending: true,
-            limit: 10,
+            orderBy: 'LastEventTime',
+            limit: 20,
         });
         const response = await client.send(command);
         return {
